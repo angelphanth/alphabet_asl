@@ -97,20 +97,11 @@ Next steps include:
 
 - `CNN_allasl_200_notransform_output.html` the outputs from running `CNN_full_200.py` in Spyder
 
-- `CNN_allasl_200_arch.json` the model architecture 
-
-- `best_weights_all200.h5` the model weights
-
-
 **CNN_rawlive_transform**
 
 - `CNN_all200_transform.py`	training and evaluating same CNN as above W/ AUGMENTATION
 
 - `CNN_all200_transform_outputs.html` outputs from `CNN_all200_transform.py` in Spyder
-
-- `CNN_allasl_200_arch_transform.json` the model architecture
-
-- `best_weights_all200_transform.h5` the model weights
 
 
 **VGG16**
@@ -119,20 +110,12 @@ Next steps include:
 
 - `vgg16_full200_output.html` outputs from `vgg16_full200.py` in Spyder
 
-- `VGG16_all.json` the model architecture
-
-- `best_weights_vgg16.h5` the model weights
-
 
 **VGG19**
 
 - `vgg19_full200.py` training and evaluating a VGG19
 
 - `VGG19_output.html` outputs from `vgg19_full200.py` in Spyder
-
-- `VGG19_all.json` the model architecture
-
-- `best_weights_vgg19.h5` the model weights
 
 
 **xception**
@@ -141,20 +124,12 @@ Next steps include:
 
 - `xception_outputs.html` outputs from `xception_full.py` in Spyder
 
-- `xception.json` the model architecture
-
-- `best_weights_xception.h5` the model weights
-
 
 **Inception_capstone**
 
 - `inception_capstone.py` training and evaluating an InceptionResNetV2 model
 
 - `inception_capstone_outputs.html`	outputs from `inception_capstone.py` in Spyder
-
-- `inception_capstone.json`	the model architecture
-
-- `best_weights_inception_capstone.h5` the model weights 
 
 
 **demo**
