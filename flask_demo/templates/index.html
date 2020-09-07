@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo Day</title>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="../static/styles.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&family=Special+Elite&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- <div class="nav-icon">
+            <i class="fa fa-bars"></i>
+        </div>-->
+
+        <section id="home" class="hero aos-init aos-animate" data-aos="fade-right">
+            <div class="title">
+                <h1>Classifying ASL Letters in Real-Time</h1>
+                <h2>
+                    Deep Learning to predict letters of the American Sign Language alphabet from a live video feed.
+                </h2>
+            </div>
+        </section>
+
+        <aside class="nav">
+            <div class="nav-close-icon">
+                <i class="fa fa-window-minimize"></i>
+            </div>
+            <ul class="nav-list">
+                <li class="nav-item"><a href=#home>The Goal</a></li>
+                <li class="nav-item"><a href=#why>Why</a></li>
+                <li class="nav-item"><a href=#model>How</a></li>
+                <li class="nav-item"><a href=#results>Results</a></li>
+                <li class="nav-item"><a href=#demon>Demo</a></li>
+                <li class="nav-item"><a href=#next>Next Steps</a></li>
+                <li class="nav-item"><a href=#contact>Contact</a></li>
+            </ul>
+            <img width=70% height=250px style="object-fit:none;object-position:10% 10%;" src="{{ url_for('video_feed') }}">
+        </aside>
+
+        <div class="main aos-init aos-animate" data-aos="fade-down" data-aos-duration="1000">
+
+            <div class="intro-slide aos-init aos-animate" data-aos="fade-down" data-aos-duration="1000">
+                <div class="intro-slide-content aos-init aos-animate" data-aos="fade-down" data-aos-duration="1000">
+                    <img src="{{url_for('static', filename='img/abcd.gif')}}" />                
+                </div>
+                
+            </div>
+
+            <div id="why" class="main-welcome aos-init aos-animate" data-aos="fade-right" data-aos-duration="1000">
+                <div class="welcome aos-init aos-animate" data-aos="fade-right" data-aos-duration="1000">
+                    <p>Sign language is a main means of communication for the 
+                        Deaf, hard of hearing, and non-verbal communities.</p> 
+                        
+                    <p>By transcribing sign language for non-signers we can 
+                        improve accessibility for those that sign.</p>
+                </div>
+                
+            </div>
+
+            <div id="model" class="main-welcome aos-init aos-animate" data-aos="fade-down" data-aos-duration="1000">
+                <div class="how-content aos-init aos-animate" data-aos="fade-down">
+                    <div class="how-content-text">
+                        <h3> Multiple Convolutional Neural Networks (CNNs) were 
+                            trained on a set of ASL images.
+                        </h3> 
+                        <p>The CNNs were then tested on ASL:
+                        </p> 
+                        <p>   (1) From other images
+                        </p> 
+                        <p>   (2) Streamed from a webcam
+                        </p> 
+                    </div>
+
+                    <img src="{{url_for('static', filename='img/asl_kaggle.png')}}" alt="" />  
+                </div>
+            </div>
+
+            <div id="results" class="main-welcome aos-init aos-animate" data-aos="fade-down" data-aos-duration="1000">
+                <div class="results-content aos-init aos-animate" data-aos="fade-down">
+                    <div>
+                        <h3> CNNs
+                            <h3> 
+                        <p> VGG16
+                        <p> 
+                        <p>VGG19
+                        </p> 
+                        <p>Xception
+                        </p> 
+                        <p>InceptionResNetV2
+                        </p> 
+                    </div>
+                    <div>
+                        <h3> Accuracy
+                            <h3> 
+                        <p> 99.9 %
+                        <p>
+                        <p>99.9 %
+                        </p>
+                        <p>98.6 %
+                        </p>
+                        <p>98.5 %
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="demon" class="aos-init aos-animate" data-aos="fade-down" data-aos-duration="1000">                  
+                <div class="demoimg">
+                    <div class="special">
+                        <img style="border-radius:15px;margin-left:5%;margin-right:auto;height:700px;" src="{{ url_for('video_feed') }}">
+                        <!-- <img src="../static/assets/abcd.gif"> -->
+                    </div>
+                </div>
+            </div>
+
+           
+            <div id="next" class="main-welcome aos-init aos-animate" data-aos="fade-down" data-aos-duration="1000">
+                <div class="next-content aos-init aos-animate" data-aos="fade-down">
+                    <div class="next-content-text">
+                        <h3>- Train SqueezeNet CNN
+                        </h3> 
+                        <h3>- Implement a hand detection model
+                        </h3> 
+                    </div>
+
+                    <img src="{{url_for('static', filename='img/track.gif')}}" /> 
+                </div>
+            </div>
+
+            
+            <div id="contact" class="main-welcome aos-init aos-animate" data-aos="fade-down" data-aos-duration="1000">
+                <div class="contact-content aos-init aos-animate" data-aos="fade-down">
+                    <div>
+                        <h1> /angelphanth
+                        <h1> 
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+
+        <footer class="footer">
+            <div class="thanks">Thank you for visiting!</div>
+            <div class="up-again">
+                <a href=#home>
+                    To the top
+                </a>
+            </div>
+        </footer>
+
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <script>
+        AOS.init();
+    </script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        const menuIconEl = $('.nav-icon');
+        const sidenavEl = $('.nav');
+        const sidenavCloseEl = $('.nav-close-icon');
+
+        // Add and remove provided class names
+        function toggleClassName(el, className) {
+            if (el.hasClass(className)) {
+            el.removeClass(className);
+            } else {
+            el.addClass(className);
+            }
+        }
+        // Open the side nav on click
+        menuIconEl.on('click', function() {
+            toggleClassName(sidenavEl, 'active');
+        });
+
+        // Close the side nav on click
+        sidenavCloseEl.on('click', function() {
+            toggleClassName(sidenavEl, 'active');
+        });
+
+        var $root = $('html, body');
+
+        $('a[href^="#"]').click(function () {
+            $root.animate({
+                scrollTop: $( $.attr(this, 'href') ).offset().top
+            }, 500);
+
+            return false;
+        });
+        
+    </script>
+
+
+</body>
+</html>
