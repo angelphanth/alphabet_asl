@@ -15,9 +15,8 @@ Instead, a new test set was created by taking 20% of the training images using t
 - Randomly allocating 20% of the training images for each class to their respective test sub-directories, and
 - Executing the python script `data_augmentation/bright_images.py`. 
 
-`bright_images.py` was responsible for:
-- Creating brightened colour and grayscale copies of the original ASL alphabet images,
-- Normalizing, resizing (64x64) and flattening each image channel to `(1, 4096)` arrays, and
+`bright_images.py` was responsible for creating brightened colour and grayscale copies of the original ASL alphabet images, with the option to:
+- Normalize, resize (64x64) and flatten each image channel to `(1, 4096)` arrays, and
 - Saving those arrays to the CSV files `asl_grey.csv` or `asl_colour.csv` (for anyone interested in fitting scikit-learn machine learning classifiers).
 
 ![Figure 1](demo/figure_1.png)
@@ -25,26 +24,23 @@ Instead, a new test set was created by taking 20% of the training images using t
 
 The images were brightened to improve visibility of individual digits and their positioning. Additional preprocessing of the images, which included flipping and shifting the images horizontally, and applying a zoom and shear to the images, was randomized and completed by Keras `ImageDataGenerator`. The purpose of randomly augmenting the images was to improve model performance when introducing new images.
 
-The first CNN architecture implemented had six weight layers and was originally created to [classify facial expressions from a live video-feed](https://towardsdatascience.com/from-raw-images-to-real-time-predictions-with-deep-learning-ddbbda1be0e4). For this project, the CNN was trained on the ASL images with (`Face CNN`) and without (`Face CNN, No Pre-`) random augmentation. Transfer learning was then leveraged by utilizing Keras `VGG16`, `VGG19`, `Xception` and `InceptionResNetV2`.
+Transfer learning was then leveraged by utilizing Keras `VGG16`, `VGG19`, `Xception` (with and without additional fully-connected layers)and training the models on the preprocessed ASL images.
 
-After learning from the training images, each CNN model was evaluated on their performance on the test images (first goal) and on new images acquired from a webcam in real-time (second goal). Performance on the tests were evaluated by creating confusion matrices (**Figure 2**) and classification reports from the true vs. model predicted classes. How each model performed on the image classification problem is summarized via accuracy scores in **Figure 3**.
+After learning from the training images, each CNN model was evaluated on their performance on the test images (first goal) and on new images acquired from a webcam in real-time (second goal). Performance on the tests were evaluated by creating confusion matrices and classification reports from the true vs. model predicted classes. How each model performed on the image classification problem is summarized via accuracy scores in **Figure 2**.
 
-![Figure 2](demo/figure_2.gif)
-*Figure 2. A GIF of normalized confusion matrices as heatmaps for every CNN. Left heatmap: The model's performance on the test set of images. Right heatmap: Model performance on the First Live Test.* 
-
-![Figure 3](demo/figure_3.png)
+![Figure 2](demo/figure_2.png)
 *Figure 3. Each model's number of parameters and performance on the training, validation and test image sets, and new webcam-sourced images as quantified by the model accuracy scores.* 
 
-All models achieved comparable accuracies of 98-100% when predicting the letters of the test set of existing images (first goal). However, differences in model performances became evident when introducing new images taken from a 640x480 webcam in the Live Tests.
+All models achieved comparable accuracies of 98-100% when predicting the letters of the test set of existing images (first goal). However, differences in model performances became evident when introducing new images taken in `real-time_test.ipynb`.
 
-The Live Test was completed by `model_evaluation/evaluate_live_all.py` and entailed:
+The Live Test was completed in `real-time_test.ipynb` and entailed:
 - Loading the six model architectures with their best weights from training,  
 - Capturing 20 frames for each class using Open Computer Vision (OpenCV),
 - Having all models predict the class of each frame,
-- Save the true classes and all model predicted classes to a CSV file, and
+- Save the true classes and all model predicted classes to a DataFrame, and
 - Output the classification report and confusion matrix for each model. 
 
-In both Live Test trials, VGG16 had the best performance, followed by VGG19. The poor performance of all other models could be attributed to differences in the number of weight layers and parameters. Xception and InceptionResNetV2 may have been [too powerful](https://towardsdatascience.com/an-intuitive-guide-to-deep-network-architectures-65fdc477db41) for the training set, quickly overfitting to the data and resulting in poor learning where weights of the earlier layers failed in updating due to [vanishing gradients](https://www.quora.com/Is-it-possible-for-a-neural-network-to-be-too-deep).
+In the live test VGG19 had the best performance, followed by VGG16 and SqueezeNet. The poor performance of Xception could be attributed to differences in the number of weight layers and parameters. Xception even without extra fully-connected layers may have been [too powerful](https://towardsdatascience.com/an-intuitive-guide-to-deep-network-architectures-65fdc477db41) for the training set, quickly overfitting to the data and resulting in poor learning where weights of the earlier layers failed in updating due to [vanishing gradients](https://www.quora.com/Is-it-possible-for-a-neural-network-to-be-too-deep).
 
 While we were able to classify ASL letters from existing images, a lot of work still needs to be done to improve ASL letter prediction in real-time. However, this project marks a first attempt towards transcribing ASL from live-video as a means of improving accessibility for those who use sign language as a primary mode of communication. 
 
@@ -77,12 +73,16 @@ Next steps include:
 
 - `README.md` 
 
-- `evaluate_live_all.py` prompts user as acquiring 20 webcam images for each class, feeds the image into all models listed above to get predictions, acquries accuracy_score, classification_report, confusion_matrix for each CNN model
-
-- `capstone_demo.py` acquires webcam images and provides **VGG16** predictions for demonstrative and interactive purposes (used to make the opening GIF)
+- `capstone_demo.py` acquires webcam images and provides **SqueezeNet** predictions for demonstrative and interactive purposes (used to make the opening GIF)
 
 
 ### Within the directories:
+
+**requirements**
+
+Option to set up Keras CPU and Keras GPU environments via conda or pip. 
+
+Note: Even if training models with GPU acceleration, to complete real-time_test will need Keras CPU environment to access webcam. 
 
 **data_augmentation** 
 
@@ -90,46 +90,34 @@ Next steps include:
 
 - `bright_images.py` creates brightened colour and grayscale copies of the training and test sets, and CSV files for scikit-learn models
 
- 
-**CNN_rawlive**
-
-- `CNN_full_200.py`	training (W/ NO IMAGE AUGMENTATION) and evaluating a CNN originally created for facial expression classification 
-
-- `CNN_allasl_200_notransform_output.html` the outputs from running `CNN_full_200.py` in Spyder
-
-**CNN_rawlive_transform**
-
-- `CNN_all200_transform.py`	training and evaluating same CNN as above W/ AUGMENTATION
-
-- `CNN_all200_transform_outputs.html` outputs from `CNN_all200_transform.py` in Spyder
-
 
 **VGG16**
 
-- `vgg16_full200.py` training and evaluating a VGG16
-
-- `vgg16_full200_output.html` outputs from `vgg16_full200.py` in Spyder
+- `VGG16_ASL.ipynb` training and evaluating a VGG16
 
 
 **VGG19**
 
-- `vgg19_full200.py` training and evaluating a VGG19
-
-- `VGG19_output.html` outputs from `vgg19_full200.py` in Spyder
+- `VGG19_ASL.ipynb` training and evaluating a VGG19
 
 
 **xception**
 
-- `xception_full.py` training and evaluating an Xception model
-
-- `xception_outputs.html` outputs from `xception_full.py` in Spyder
+- `xception_asl.ipynb` training and evaluating an Xception model with additional fully-connected layers
 
 
-**Inception_capstone**
+**xception_noFC**
 
-- `inception_capstone.py` training and evaluating an InceptionResNetV2 model
+- `xception_asl_nofc.ipynb` training and evaluating an Xception model without additional layers
 
-- `inception_capstone_outputs.html`	outputs from `inception_capstone.py` in Spyder
+
+**SqueezeNet**
+
+- `squeezenet_asl.ipynb` training and evaluating a Squeezenet model
+
+- `squeeze_asl.JSON` model architecture
+
+- `best_weights_squeeze.h5` model weights
 
 
 **demo**
@@ -138,6 +126,4 @@ Next steps include:
 
 - `figure_1.png` *Figure 1. Samples of ASL letters "A", "B", and "C" in their original format, following brightening, and following augmentation with ImageDataGenerator.* 
 
-- `figure_2.gif` *Figure 2. A GIF of normalized confusion matrices as heatmaps for every CNN. Left heatmap: The model's performance on the test set of images. Right heatmap: Model performance on the First Live Test.* 
-
-- `figure_3.png` *Figure 3. Each model's number of parameters and performance on the training, validation and test image sets, and new webcam-sourced images as quantified by the model accuracy scores.* 
+- `figure_2.png` *Figure 2. Each model's number of parameters and performance on the training, validation and test image sets, and new webcam-sourced images as quantified by the model accuracy scores.* 

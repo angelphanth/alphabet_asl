@@ -9,12 +9,12 @@ LETTER_LIST = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
       'V', 'W', 'X', 'Y', 'Z', 'del', 'nothing', 'space']
 
 # Loading in the model architecture and weights
-with open('VGG16/VGG16_all.json', "r") as json_file:
+with open('squeezenet/squeeze_asl.json', "r") as json_file:
     loaded_model_json = json_file.read()
     loaded_model = model_from_json(loaded_model_json)
 
 # Load model weights
-loaded_model.load_weights('VGG16/best_weights_vgg16.h5')
+loaded_model.load_weights('squeezenet/best_weights_squeeze.h5')
 loaded_model._make_predict_function()
 
 # Creating a function that will feed the processed image into the model 
